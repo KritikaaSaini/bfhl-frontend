@@ -5,13 +5,14 @@ import "./App.css";
 function App() {
   const [jsonInput, setJsonInput] = useState("");
   const [response, setResponse] = useState({});
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const [filteredResponse, setFilteredResponse] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("YOUR_API_ENDPOINT/bfhl", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/bfhl`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,6 +28,8 @@ function App() {
   };
 
   const handleFilterChange = (selectedOptions) => {
+    setSelectedOptions(selectedOptions);
+
     const filteredData = selectedOptions
       .map((option) => {
         const valueArray = response[option.value] || [];
@@ -80,4 +83,3 @@ function App() {
 }
 
 export default App;
-
